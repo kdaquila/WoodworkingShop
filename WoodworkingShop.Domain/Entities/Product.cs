@@ -1,17 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WoodworkingShop.Domain
 {
     public class Product
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
+
+        private string _name;
+        public string Name { 
+            get { return _name; } 
+            set {
+                if (value == null) throw new ArgumentException("Must not be null", nameof(Name));
+                if (value.Length == 0) throw new ArgumentException("Must not be empty", nameof(Name));
+                _name = value;
+            } 
+        }
+
+        private string _description;
+        public string Description { 
+            get { return _description; } 
+            set {
+                if (value == null) throw new ArgumentException("Must not be null", nameof(Description));
+                _description = value;
+            }
+        }
+
+        private decimal _price;
+        public decimal Price { 
+            get { return _price; }
+            set {
+                if (value < 0) throw new ArgumentException("Must not be negative", nameof(Price));
+                _price = value;
+            } 
+        }
 
         public Product(Guid id, string name, string description, decimal price)
         {

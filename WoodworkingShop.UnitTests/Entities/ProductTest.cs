@@ -10,15 +10,73 @@ namespace WoodworkingShop.UnitTests
 {
     public class ProductTest
     {
-        [Theory]
-        [InlineData("Mitre Saw")]
-        public void UpdateNameWithValidData(string name)
+        public string DefaultName = "Table Saw";
+        public string DefaultDescription = "Jobsite table saw";
+        public decimal DefaultPrice = 350.0m;
+
+        [Fact]
+        public void UpdateNameWithValid()
         {
-            Product product = new Product(new Guid(), name: "Table Saw", description: "Jobsite table saw", price: 350.0m);
+            String Name = "Mitre Saw";
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
-            product.Name = name;
+            product.Name = Name;
 
-            Assert.Equal(name, product.Name);
+            Assert.Equal(Name, product.Name);
+        }
+
+        [Fact]
+        public void UpdateNameWithNull()
+        {
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+                      
+            Assert.Throws<ArgumentException>(() => product.Name = null);
+        }
+
+        [Fact]
+        public void UpdateNameWithEmpty()
+        {
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            Assert.Throws<ArgumentException>(() => product.Name = "");
+        }
+
+        [Fact]
+        public void UpdateDescriptionWithValid()
+        {
+            String Description = "Jobsite mitre saw";
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            product.Description = Description;
+
+            Assert.Equal(Description, product.Description);
+        }
+
+        [Fact]
+        public void UpdateDescriptionWithNull()
+        {
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            Assert.Throws<ArgumentException>(() => product.Description = null);
+        }
+
+        [Fact]
+        public void UpdatePriceWithValid()
+        {
+            decimal PriceDecimal = 200.0m;
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            product.Price = PriceDecimal;
+
+            Assert.Equal(PriceDecimal, product.Price);
+        }
+
+        [Fact]
+        public void UpdatePriceWithNegative()
+        {
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            Assert.Throws<ArgumentException>(() => product.Price = -200.0m);
         }
     }
 
