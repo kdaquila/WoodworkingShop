@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain;
+using WoodworkingShop.Domain.Entities;
 
 namespace WoodworkingShop.Infrastructure
 {
@@ -13,8 +13,6 @@ namespace WoodworkingShop.Infrastructure
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            //builder.ToTable("DataDb");
-
             builder.Property("Price")
                 .HasColumnType("decimal(18,2)");
         }

@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace WoodworkingShop.Domain
+namespace WoodworkingShop.Domain.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public Guid Id { get; set; }
-
         private string _name;
         public string Name { 
             get { return _name; } 

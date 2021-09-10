@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain;
+using WoodworkingShop.Domain.Entities;
 
 namespace WoodworkingShop.Infrastructure
 {

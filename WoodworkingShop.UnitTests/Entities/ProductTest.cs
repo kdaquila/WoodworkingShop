@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain;
+using WoodworkingShop.Domain.Entities;
 using Xunit;
 
 namespace WoodworkingShop.UnitTests

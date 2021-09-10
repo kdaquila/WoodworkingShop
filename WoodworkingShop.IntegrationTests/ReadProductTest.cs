@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain;
+using WoodworkingShop.Domain.Entities;
 using WoodworkingShop.Infrastructure;
 using Xunit;
 
