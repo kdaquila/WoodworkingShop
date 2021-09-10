@@ -36,7 +36,7 @@ namespace WoodworkingShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataDb");
+                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }

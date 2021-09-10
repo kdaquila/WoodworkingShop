@@ -28,7 +28,7 @@ namespace WoodworkingShop.WebMvc
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DataDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("WoodworkingShopDatabase"));
             });
         }
 

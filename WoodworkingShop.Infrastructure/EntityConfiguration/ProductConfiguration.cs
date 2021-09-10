@@ -13,7 +13,7 @@ namespace WoodworkingShop.Infrastructure
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("DataDb");
+            //builder.ToTable("DataDb");
 
             builder.Property("Price")
                 .HasColumnType("decimal(18,2)");

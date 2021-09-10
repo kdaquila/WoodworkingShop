@@ -8,7 +8,7 @@ namespace WoodworkingShop.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DataDb",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -18,14 +18,14 @@ namespace WoodworkingShop.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DataDb", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DataDb");
+                name: "Products");
         }
     }
 }

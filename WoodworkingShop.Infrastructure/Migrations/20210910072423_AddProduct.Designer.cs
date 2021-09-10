@@ -10,7 +10,7 @@ using WoodworkingShop.Infrastructure;
 namespace WoodworkingShop.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210910062934_AddProduct")]
+    [Migration("20210910072423_AddProduct")]
     partial class AddProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace WoodworkingShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataDb");
+                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }
