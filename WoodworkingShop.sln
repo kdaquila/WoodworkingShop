@@ -10,9 +10,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodworkingShop.UnitTests",
 		{15587A6D-7547-4D1A-ADCB-D684450011F8} = {15587A6D-7547-4D1A-ADCB-D684450011F8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodworkingShop.Infrastructure", "WoodworkingShop.Infrastructure\WoodworkingShop.Infrastructure.csproj", "{ECE56542-A78A-4949-B0D7-A845017080D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodworkingShop.Infrastructure", "WoodworkingShop.Infrastructure\WoodworkingShop.Infrastructure.csproj", "{ECE56542-A78A-4949-B0D7-A845017080D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodworkingShop.WebMvc", "WoodworkingShop.WebMvc\WoodworkingShop.WebMvc.csproj", "{1E9D9F12-A3A2-4A3C-9167-EC04ACE98B28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodworkingShop.WebMvc", "WoodworkingShop.WebMvc\WoodworkingShop.WebMvc.csproj", "{1E9D9F12-A3A2-4A3C-9167-EC04ACE98B28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodworkingShop.IntegrationTests", "WoodworkingShop.IntegrationTests\WoodworkingShop.IntegrationTests.csproj", "{CEF9CD34-BD46-4DBE-BA0E-FAB3C801BF1B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ECE56542-A78A-4949-B0D7-A845017080D8} = {ECE56542-A78A-4949-B0D7-A845017080D8}
+		{15587A6D-7547-4D1A-ADCB-D684450011F8} = {15587A6D-7547-4D1A-ADCB-D684450011F8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +42,10 @@ Global
 		{1E9D9F12-A3A2-4A3C-9167-EC04ACE98B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E9D9F12-A3A2-4A3C-9167-EC04ACE98B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E9D9F12-A3A2-4A3C-9167-EC04ACE98B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF9CD34-BD46-4DBE-BA0E-FAB3C801BF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF9CD34-BD46-4DBE-BA0E-FAB3C801BF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF9CD34-BD46-4DBE-BA0E-FAB3C801BF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF9CD34-BD46-4DBE-BA0E-FAB3C801BF1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
