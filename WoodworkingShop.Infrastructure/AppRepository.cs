@@ -18,9 +18,21 @@ namespace WoodworkingShop.Infrastructure
             _appDbContext = appDbContext;
         }
 
+        public async Task<T> AddAsync(T entity)
+        {
+            await _appDbContext.Set<T>().AddAsync(entity);
+            await _appDbContext.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            _appDbContext.Set<T>().Remove(entity);
+            await _appDbContext.SaveChangesAsync();
+        }
+
         public async Task<T> GetByIdAsync(Guid id)
         {
-            await _appDbContext.Set<T>().FirstAsync(t => t.Id == id);
             return await _appDbContext.Set<T>().FindAsync(new object[] { id });
         }
 
@@ -29,9 +41,10 @@ namespace WoodworkingShop.Infrastructure
             return await _appDbContext.Set<T>().ToListAsync();
         }
 
-        public Task<IList<T>> ListAsync()
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _appDbContext.Entry(entity).State = EntityState.Modified;
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

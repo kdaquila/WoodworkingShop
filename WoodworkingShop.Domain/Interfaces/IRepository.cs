@@ -10,10 +10,10 @@ namespace WoodworkingShop.Domain.Interfaces
     {
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAllAsync();
-        Task<IList<T>> ListAsync();
-        //Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
-        //Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
-        //Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
+        //Task<IList<T>> ListAsync();
+        Task<T> AddAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
         //Task<int> CountAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);
         //Task<T> FirstAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);
         //Task<T> FirstOrDefaultAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);
