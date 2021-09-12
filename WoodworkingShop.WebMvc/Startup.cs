@@ -9,7 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoodworkingShop.Domain.Interfaces;
 using WoodworkingShop.Infrastructure;
+using WoodworkingShop.WebMvc.ViewModels;
 
 namespace WoodworkingShop.WebMvc
 {
@@ -25,6 +27,8 @@ namespace WoodworkingShop.WebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ProductViewModelService>();
+            services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
             {

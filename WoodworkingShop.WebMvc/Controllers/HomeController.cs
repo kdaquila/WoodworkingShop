@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WoodworkingShop.WebMvc.Models;
+using WoodworkingShop.WebMvc.ViewModels;
 
 namespace WoodworkingShop.WebMvc.Controllers
 {
@@ -13,14 +14,20 @@ namespace WoodworkingShop.WebMvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ProductViewModelService _productViewModelService { get; }
+
+        public HomeController(
+            ILogger<HomeController> logger, 
+            ProductViewModelService productViewModelService)
         {
             _logger = logger;
+            _productViewModelService = productViewModelService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<ProductViewModel> productViewModels = await _productViewModelService.getProductViewModels();
+            return View(productViewModels);
         }
 
         public IActionResult Privacy()
