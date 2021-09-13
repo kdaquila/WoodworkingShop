@@ -20,12 +20,11 @@ namespace WoodworkingShop.WebMvc.ViewModels
 
         public async Task<List<ProductViewModel>> getProductViewModels()
         {
-            IList<Product> productList = await _products.ListAsync(
-                new SimpleQueryOptions<Product>
-                {
-                    Where = p => p.Name.StartsWith("T")
-                }
-            );
+            IQueryOptions<Product> queryOptions = new QueryOptions<Product>
+            {
+                OrderBy = p => p.Name
+            };
+            IList<Product> productList = await _products.ListAsync(queryOptions);
             List<ProductViewModel> productViewModels = new List<ProductViewModel>();
             foreach (Product product in productList)
             {

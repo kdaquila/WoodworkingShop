@@ -4,14 +4,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using WoodworkingShop.Domain;
+using WoodworkingShop.Domain.Entities;
 using WoodworkingShop.Domain.Interfaces;
+using WoodworkingShop.Infrastructure;
 
-namespace WoodworkingShop.Domain
+namespace WoodworkingShop.Infrastructure
 {
-    public class QueryBuilder<T>
+    public class QueryBuilder<T> : IQueryBuilder<T> where T: BaseEntity
     {
-        public IQueryable<T> Build(IQueryable<T> query, IQueryOptions<T> options)
+        AppDbContext _appDbContext;
+
+        public QueryBuilder(AppDbContext appDbContext)
         {
+            _appDbContext = appDbContext;
+        }
+
+        public IQueryable<T> Build(IQueryOptions<T> options)
+        {
+            IQueryable<T> query = _appDbContext.Set<T>();
+
             if (options.HasWhere())
             {
                 query = query.Where(options.Where);

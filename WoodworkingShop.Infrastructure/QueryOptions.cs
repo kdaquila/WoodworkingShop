@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace WoodworkingShop.Domain
 {
-    public interface IQueryOptions<T>
+    public class QueryOptions<T> : IQueryOptions<T>
     {
         public Expression<Func<T, object>> OrderBy { get; set; }
         public Expression<Func<T, bool>> Where { get; set; }
 
-        public bool HasWhere();
-        public bool HasOrderBy();
+        public bool HasOrderBy() => OrderBy != null;
+        public bool HasWhere() => Where != null;
     }
 }

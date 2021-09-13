@@ -13,9 +13,9 @@ namespace WoodworkingShop.Infrastructure
     public class AppRepository<T> : IRepository<T> where T: BaseEntity
     {
         public AppDbContext _appDbContext { get; set; }
-        public QueryBuilder<T> _queryBuilder { get; set; }
+        public IQueryBuilder<T> _queryBuilder { get; set; }
 
-        public AppRepository(AppDbContext appDbContext, QueryBuilder<T> queryBuilder)
+        public AppRepository(AppDbContext appDbContext, IQueryBuilder<T> queryBuilder)
         {
             _appDbContext = appDbContext;
             _queryBuilder = queryBuilder;
@@ -46,8 +46,7 @@ namespace WoodworkingShop.Infrastructure
 
         public async Task<IList<T>> ListAsync(IQueryOptions<T> options)
         {
-            DbSet<T> dbSet = _appDbContext.Set<T>();
-            IQueryable<T> query = _queryBuilder.Build(dbSet, options);
+            IQueryable<T> query = _queryBuilder.Build(options);
             return await query.ToListAsync();
         }
 
