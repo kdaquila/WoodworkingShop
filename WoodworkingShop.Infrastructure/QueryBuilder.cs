@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,16 +14,9 @@ namespace WoodworkingShop.Infrastructure
 {
     public class QueryBuilder<T> : IQueryBuilder<T> where T: BaseEntity
     {
-        AppDbContext _appDbContext;
-
-        public QueryBuilder(AppDbContext appDbContext)
+        public IQueryable<T> Build(DbContext dbContext,  IQueryOptions<T> options)
         {
-            _appDbContext = appDbContext;
-        }
-
-        public IQueryable<T> Build(IQueryOptions<T> options)
-        {
-            IQueryable<T> query = _appDbContext.Set<T>();
+            IQueryable<T> query = dbContext.Set<T>();
 
             if (options.HasWhere())
             {

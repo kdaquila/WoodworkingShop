@@ -46,7 +46,7 @@ namespace WoodworkingShop.Infrastructure
 
         public async Task<IList<T>> ListAsync(IQueryOptions<T> options)
         {
-            IQueryable<T> query = _queryBuilder.Build(options);
+            IQueryable<T> query = _queryBuilder.Build(_appDbContext, options);
             return await query.ToListAsync();
         }
 

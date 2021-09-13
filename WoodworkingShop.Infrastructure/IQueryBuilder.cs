@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace WoodworkingShop.Infrastructure
 {
     public interface IQueryBuilder<T> where T: BaseEntity
     {
-        public IQueryable<T> Build(IQueryOptions<T> options);
+        public IQueryable<T> Build(DbContext dbContext, IQueryOptions<T> options);
     }
 }

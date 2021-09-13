@@ -26,7 +26,7 @@ namespace WoodworkingShop.IntegrationTests.Products
                 description: "High quality hand saw",
                 price: 100.0m));
             await base._dbContext.SaveChangesAsync();
-            IRepository<Product> productRepo = new AppRepository<Product>(base._dbContext);
+            IRepository<Product> productRepo = new AppRepository<Product>(base._dbContext, new QueryBuilder<Product>());
 
             List<Product> products = await productRepo.ListAllAsync();
 
