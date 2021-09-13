@@ -10,7 +10,7 @@ namespace WoodworkingShop.Domain.Interfaces
     {
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAllAsync();
-        //Task<IList<T>> ListAsync();
+        Task<IList<T>> ListAsync(IQueryOptions<T> options);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
