@@ -53,6 +53,14 @@ namespace WoodworkingShop.UnitTests
         }
 
         [Fact]
+        public void UpdateDescriptionWithEmpty()
+        {
+            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+
+            Assert.Throws<ArgumentException>(() => product.Description = "");
+        }
+
+        [Fact]
         public void UpdateDescriptionWithNull()
         {
             Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);

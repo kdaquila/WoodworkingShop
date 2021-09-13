@@ -19,6 +19,7 @@ namespace WoodworkingShop.Domain.Entities
             get { return _description; } 
             set {
                 if (value == null) throw new ArgumentException("Must not be null", nameof(Description));
+                if (value.Length == 0) throw new ArgumentException("Must not be empty", nameof(Description));
                 _description = value;
             }
         }
