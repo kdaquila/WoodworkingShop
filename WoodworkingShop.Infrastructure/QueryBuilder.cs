@@ -34,6 +34,11 @@ namespace WoodworkingShop.Infrastructure
                 query = query.OrderBy(options.OrderBy);
             }
 
+            if (options.HasOrderByDescending())
+            {
+                query = query.OrderByDescending(options.OrderByDescending);
+            }
+
             return query;
         }
     }

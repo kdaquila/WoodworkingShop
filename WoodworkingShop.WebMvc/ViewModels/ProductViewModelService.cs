@@ -22,7 +22,7 @@ namespace WoodworkingShop.WebMvc.ViewModels
         {
             IQueryOptions<Product> queryOptions = new QueryOptions<Product>
             {
-                OrderBy = p => p.Name
+                OrderByDescending = p => p.Name
             };
             IList<Product> productList = await _products.ListAsync(queryOptions);
             List<ProductViewModel> productViewModels = new List<ProductViewModel>();

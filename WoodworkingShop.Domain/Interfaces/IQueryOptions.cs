@@ -10,9 +10,11 @@ namespace WoodworkingShop.Domain
     public interface IQueryOptions<T>
     {
         public Expression<Func<T, object>> OrderBy { get; set; }
+        public Expression<Func<T, object>> OrderByDescending { get; set; }
         public Expression<Func<T, bool>> Where { get; set; }
 
         public bool HasWhere();
         public bool HasOrderBy();
+        public bool HasOrderByDescending();
     }
 }
