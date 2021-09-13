@@ -26,7 +26,7 @@ namespace WoodworkingShop.WebMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<ProductViewModel> productViewModels = await _productViewModelService.getProductViewModels();
+            List<ProductViewModel> productViewModels = await _productViewModelService.buildViewModel();
             return View(productViewModels);
         }
 

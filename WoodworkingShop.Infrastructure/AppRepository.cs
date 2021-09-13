@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 using WoodworkingShop.Domain;
 using WoodworkingShop.Domain.Entities;
 using WoodworkingShop.Domain.Interfaces;
+using WoodworkingShop.Infrastructure.QueryOptions;
 
 namespace WoodworkingShop.Infrastructure
 {
     public class AppRepository<T> : IRepository<T> where T: BaseEntity
     {
         public AppDbContext _appDbContext { get; set; }
-        public QueryBuilder<T> _queryBuilder { get; set; }
 
-        public AppRepository(AppDbContext appDbContext, QueryBuilder<T> queryBuilder)
+        public AppRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
-            _queryBuilder = queryBuilder;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -44,10 +43,9 @@ namespace WoodworkingShop.Infrastructure
             return await _appDbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<IList<T>> ListAsync(IQueryOptions<T> options)
+        public async Task<IList<T>> ListAsync(IQueryBuilder<T> queryBuilder)
         {
-            DbSet<T> dbSet = _appDbContext.Set<T>();
-            IQueryable<T> query = _queryBuilder.Build(dbSet, options);
+            IQueryable<T> query = queryBuilder.Build();
             return await query.ToListAsync();
         }
 
@@ -55,6 +53,11 @@ namespace WoodworkingShop.Infrastructure
         {
             _appDbContext.Entry(entity).State = EntityState.Modified;
             await _appDbContext.SaveChangesAsync();
+        }
+
+        public IQueryBuilder<T> createQueryBuilder()
+        {
+            return new SimpleQueryBuilder<T>(_appDbContext);
         }
     }
 }

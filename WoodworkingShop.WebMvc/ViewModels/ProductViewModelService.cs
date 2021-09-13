@@ -6,26 +6,25 @@ using WoodworkingShop.Domain;
 using WoodworkingShop.Domain.Entities;
 using WoodworkingShop.Domain.Interfaces;
 using WoodworkingShop.Infrastructure;
+using WoodworkingShop.Infrastructure.QueryOptions;
 
 namespace WoodworkingShop.WebMvc.ViewModels
 {
     public class ProductViewModelService
     {
-        private IRepository<Product> _products;
+        public IRepository<Product> _products;
 
         public ProductViewModelService(IRepository<Product> products)
         {
             _products = products;
         }
 
-        public async Task<List<ProductViewModel>> getProductViewModels()
+        public async Task<List<ProductViewModel>> buildViewModel()
         {
-            IList<Product> productList = await _products.ListAsync(
-                new SimpleQueryOptions<Product>
-                {
-                    Where = p => p.Name.StartsWith("T")
-                }
-            );
+            IQueryBuilder<Product> queryBuilder = _products.createQueryBuilder();
+            queryBuilder.OrderBy = p => p.Name;
+
+            IList<Product> productList = await _products.ListAsync(queryBuilder);
             List<ProductViewModel> productViewModels = new List<ProductViewModel>();
             foreach (Product product in productList)
             {

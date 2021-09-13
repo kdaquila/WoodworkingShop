@@ -10,7 +10,7 @@ namespace WoodworkingShop.Domain
 {
     public class QueryBuilder<T>
     {
-        public IQueryable<T> Build(IQueryable<T> query, IQueryOptions<T> options)
+        public IQueryable<T> Build(IQueryable<T> query, IQueryBuilder<T> options)
         {
             if (options.HasWhere())
             {
