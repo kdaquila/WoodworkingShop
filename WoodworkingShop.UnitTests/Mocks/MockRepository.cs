@@ -20,7 +20,7 @@ namespace WoodworkingShop.UnitTests
 
         public async Task<T> AddAsync(T entity)
         {
-            _storage.Add(entity);        
+            await Task.Run(() => _storage.Add(entity));        
             return entity;
         }
 
