@@ -5,22 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
 
-namespace WoodworkingShop.UnitTests.Mocks
+namespace WoodworkingShop.UnitTests
 {
     class MockRepository<T> : IRepository<T> where T: BaseEntity
     {
         List<T> _storage;
-        MockQueryEvaluator<T> _queryEvaluator;
+        QueryOptionsEvaluator<T> _queryEvaluator;
 
         public MockRepository()
         {
             _storage = new List<T>();
-            _queryEvaluator = new MockQueryEvaluator<T>();
+            _queryEvaluator = new QueryOptionsEvaluator<T>();
         }
 
         public async Task<T> AddAsync(T entity)
         {
-            await Task.Run(() => _storage.Add(entity));        
+            _storage.Add(entity);        
             return entity;
         }
 

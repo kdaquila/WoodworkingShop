@@ -16,7 +16,7 @@ namespace WoodworkingShop.UnitTests
             Cart cart = new Cart();
             Guid productId = new Guid();
 
-            cart.AddCartItems(productId: productId, quantity: 10);
+            cart.AddProducts(productId: productId, quantity: 10);
 
             Assert.Equal(10, cart.CartItemSets.Find(c => c.ProductId == productId).Quantity);
         }
@@ -27,8 +27,8 @@ namespace WoodworkingShop.UnitTests
             Cart cart = new Cart();
             Guid productId = new Guid();
 
-            cart.AddCartItems(productId: productId, quantity: 10);
-            cart.RemoveCartItems(productId: productId, quantity: 5);
+            cart.AddProducts(productId: productId, quantity: 10);
+            cart.RemoveProducts(productId: productId, quantity: 5);
 
             Assert.Equal(5, cart.CartItemSets.Find(c => c.ProductId == productId).Quantity);
         }

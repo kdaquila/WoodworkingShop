@@ -15,7 +15,7 @@ namespace WoodworkingShop.Domain
             CartItemSets = new List<CartItemSet>();
         }
 
-        public void AddCartItems(Guid productId, int quantity)
+        public void AddProducts(Guid productId, int quantity)
         {
             CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
 
@@ -29,7 +29,7 @@ namespace WoodworkingShop.Domain
             }            
         }
 
-        public void RemoveCartItems(Guid productId, int quantity)
+        public void RemoveProducts(Guid productId, int quantity)
         {
             CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
 
