@@ -5,20 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
-using WoodworkingShop.Domain.Entities;
-using WoodworkingShop.Domain.Interfaces;
 
 namespace WoodworkingShop.Infrastructure
 {
     public class AppRepository<T> : IRepository<T> where T: BaseEntity
     {
         public AppDbContext _appDbContext { get; set; }
-        public IQueryBuilder<T> _queryBuilder { get; set; }
+        public QueryOptionsEvaluator<T> _queryOptionsEvaluator { get; set; }
 
-        public AppRepository(AppDbContext appDbContext, IQueryBuilder<T> queryBuilder)
+        public AppRepository(AppDbContext appDbContext, QueryOptionsEvaluator<T> queryOptionsEvaluator)
         {
             _appDbContext = appDbContext;
-            _queryBuilder = queryBuilder;
+            _queryOptionsEvaluator = queryOptionsEvaluator;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -44,9 +42,10 @@ namespace WoodworkingShop.Infrastructure
             return await _appDbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<IList<T>> ListAsync(IQueryOptions<T> options)
+        public async Task<List<T>> ListAsync(IQueryOptions<T> options)
         {
-            IQueryable<T> query = _queryBuilder.Build(_appDbContext, options);
+            IQueryable<T> query = _appDbContext.Set<T>();
+            query = _queryOptionsEvaluator.Evaluate(query, options);
             return await query.ToListAsync();
         }
 

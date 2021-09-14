@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain.Entities;
-using WoodworkingShop.Domain.Interfaces;
+using WoodworkingShop.Domain;
 using WoodworkingShop.Infrastructure;
 using Xunit;
 
@@ -26,7 +25,7 @@ namespace WoodworkingShop.IntegrationTests.Products
                 description: "High quality hand saw",
                 price: 100.0m));
             await base._dbContext.SaveChangesAsync();
-            IRepository<Product> productRepo = new AppRepository<Product>(base._dbContext, new QueryBuilder<Product>());
+            IRepository<Product> productRepo = new AppRepository<Product>(base._dbContext, new QueryOptionsEvaluator<Product>());
 
             List<Product> products = await productRepo.ListAllAsync();
 

@@ -6,18 +6,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
-using WoodworkingShop.Domain.Entities;
-using WoodworkingShop.Domain.Interfaces;
 using WoodworkingShop.Infrastructure;
 
 namespace WoodworkingShop.Infrastructure
 {
-    public class QueryBuilder<T> : IQueryBuilder<T> where T: BaseEntity
+    public class QueryOptionsEvaluator<T> : IQueryOptionsEvaluator<T>  where T: BaseEntity
     {
-        public IQueryable<T> Build(DbContext dbContext,  IQueryOptions<T> options)
-        {
-            IQueryable<T> query = dbContext.Set<T>();
 
+        public IQueryable<T> Evaluate(IQueryable<T> query,  IQueryOptions<T> options)
+        {
             if (options.HasWhere())
             {
                 query = query.Where(options.Where);

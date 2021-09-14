@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WoodworkingShop.Domain.Entities;
+using WoodworkingShop.Domain;
 
 namespace WoodworkingShop.Infrastructure
 {

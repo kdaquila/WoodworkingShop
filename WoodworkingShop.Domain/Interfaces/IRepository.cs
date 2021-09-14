@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WoodworkingShop.Domain.Interfaces
+namespace WoodworkingShop.Domain
 {
     public interface IRepository<T>
     {
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAllAsync();
-        Task<IList<T>> ListAsync(IQueryOptions<T> options);
+        Task<List<T>> ListAsync(IQueryOptions<T> options);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);

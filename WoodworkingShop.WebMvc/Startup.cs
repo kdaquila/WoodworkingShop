@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WoodworkingShop.Domain.Interfaces;
+using WoodworkingShop.Domain;
 using WoodworkingShop.Infrastructure;
 using WoodworkingShop.WebMvc.ViewModels;
 
@@ -27,7 +22,7 @@ namespace WoodworkingShop.WebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(IQueryBuilder<>), typeof(QueryBuilder<>));
+            services.AddScoped(typeof(QueryOptionsEvaluator<>));
             services.AddScoped<ProductViewModelService>();
             services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
             services.AddControllersWithViews();

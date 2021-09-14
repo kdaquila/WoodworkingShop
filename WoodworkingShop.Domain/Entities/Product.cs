@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WoodworkingShop.Domain.Entities
+namespace WoodworkingShop.Domain
 {
     public class Product : BaseEntity
     {

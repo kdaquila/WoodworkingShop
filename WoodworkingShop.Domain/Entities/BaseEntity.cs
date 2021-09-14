@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WoodworkingShop.Domain.Entities
+namespace WoodworkingShop.Domain
 {
     public class BaseEntity
     {
