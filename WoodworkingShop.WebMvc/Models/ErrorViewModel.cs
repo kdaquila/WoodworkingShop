@@ -1,6 +1,6 @@
 using System;
 
-namespace WoodworkingShop.WebMvc.Models
+namespace WoodworkingShop.WebMvc
 {
     public class ErrorViewModel
     {

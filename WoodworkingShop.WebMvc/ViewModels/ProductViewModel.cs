@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WoodworkingShop.WebMvc.ViewModels
+namespace WoodworkingShop.WebMvc
 {
     public class ProductViewModel
     {

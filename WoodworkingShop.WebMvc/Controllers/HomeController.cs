@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using WoodworkingShop.WebMvc.Models;
-using WoodworkingShop.WebMvc.ViewModels;
+using WoodworkingShop.WebMvc;
 
 namespace WoodworkingShop.WebMvc.Controllers
 {

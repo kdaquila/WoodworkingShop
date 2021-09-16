@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
 
-namespace WoodworkingShop.WebMvc.ViewModels
+namespace WoodworkingShop.WebMvc
 {
     public class ProductViewModelService
     {
