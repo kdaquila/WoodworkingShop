@@ -14,7 +14,7 @@ namespace WoodworkingShop.UnitTests
         public void AddProductToCart()
         {
             Cart cart = new Cart();
-            Guid productId = new Guid();
+            Guid productId = Guid.NewGuid();
 
             cart.AddProducts(productId: productId, quantity: 10);
 
@@ -25,7 +25,7 @@ namespace WoodworkingShop.UnitTests
         public void RemoveProductFromCart()
         {
             Cart cart = new Cart();
-            Guid productId = new Guid();
+            Guid productId = Guid.NewGuid();
 
             cart.AddProducts(productId: productId, quantity: 10);
             cart.RemoveProducts(productId: productId, quantity: 5);

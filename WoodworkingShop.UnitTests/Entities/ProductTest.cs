@@ -18,7 +18,7 @@ namespace WoodworkingShop.UnitTests
         public void UpdateNameWithValid()
         {
             String Name = "Mitre Saw";
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             product.Name = Name;
 
@@ -28,7 +28,7 @@ namespace WoodworkingShop.UnitTests
         [Fact]
         public void UpdateNameWithNull()
         {
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
                       
             Assert.Throws<ArgumentException>(() => product.Name = null);
         }
@@ -36,7 +36,7 @@ namespace WoodworkingShop.UnitTests
         [Fact]
         public void UpdateNameWithEmpty()
         {
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             Assert.Throws<ArgumentException>(() => product.Name = "");
         }
@@ -45,7 +45,7 @@ namespace WoodworkingShop.UnitTests
         public void UpdateDescriptionWithValid()
         {
             String Description = "Jobsite mitre saw";
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             product.Description = Description;
 
@@ -55,7 +55,7 @@ namespace WoodworkingShop.UnitTests
         [Fact]
         public void UpdateDescriptionWithEmpty()
         {
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             Assert.Throws<ArgumentException>(() => product.Description = "");
         }
@@ -63,7 +63,7 @@ namespace WoodworkingShop.UnitTests
         [Fact]
         public void UpdateDescriptionWithNull()
         {
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             Assert.Throws<ArgumentException>(() => product.Description = null);
         }
@@ -72,7 +72,7 @@ namespace WoodworkingShop.UnitTests
         public void UpdatePriceWithValid()
         {
             decimal PriceDecimal = 200.0m;
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             product.Price = PriceDecimal;
 
@@ -82,7 +82,7 @@ namespace WoodworkingShop.UnitTests
         [Fact]
         public void UpdatePriceWithNegative()
         {
-            Product product = new Product(new Guid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
+            Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
             Assert.Throws<ArgumentException>(() => product.Price = -200.0m);
         }
