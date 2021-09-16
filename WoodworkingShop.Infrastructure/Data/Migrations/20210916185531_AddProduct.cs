@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WoodworkingShop.Infrastructure.Migrations
+namespace WoodworkingShop.Infrastructure.Data.Migrations
 {
     public partial class AddProduct : Migration
     {

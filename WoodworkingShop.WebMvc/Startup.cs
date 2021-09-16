@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WoodworkingShop.Domain;
 using WoodworkingShop.Infrastructure;
-using WoodworkingShop.WebMvc.ViewModels;
 
 namespace WoodworkingShop.WebMvc
 {
@@ -25,11 +25,26 @@ namespace WoodworkingShop.WebMvc
             services.AddScoped(typeof(QueryOptionsEvaluator<>));
             services.AddScoped<ProductViewModelService>();
             services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
+
             services.AddControllersWithViews();
+
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("WoodworkingShopDatabase"));
+                options.UseSqlServer(Configuration.GetConnectionString("WoodworkingShopData"));
             });
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("WoodworkingShopIdentity"));
+            });
+
+            services.AddIdentity<AppIdentityUser, IdentityRole>(options => {
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                })
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +64,9 @@ namespace WoodworkingShop.WebMvc
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 
