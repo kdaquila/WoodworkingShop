@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace WoodworkingShop.Domain
 {
-    public class CartItemSet
+    public class CartItemSet : BaseEntity
     {
         public Guid CartId { get; set; }
         public Guid ProductId { get; set; }
+        public Product Product { get; set; }
         public int Quantity { get; set; }
 
         public CartItemSet(Guid cartId, Guid productId, int quantity)
