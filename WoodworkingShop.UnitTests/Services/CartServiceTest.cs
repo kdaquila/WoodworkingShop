@@ -11,6 +11,18 @@ namespace WoodworkingShop.UnitTests
     public class CartServiceTest
     {
         [Fact]
+        public async Task CreateNewCart()
+        {
+            IRepository<Cart> mockRepository = new MockRepository<Cart>();
+            ICartService cartService = new CartService(mockRepository);
+            Guid cartId = new Guid();
+            await cartService.CreateNewCartAsync(cartId);
+
+            Cart storedCart = await mockRepository.GetByIdAsync(cartId);
+            Assert.Equal(cartId, storedCart.Id);
+        }
+
+        [Fact]
         public async Task AddProductToCart()
         {
             IRepository<Cart> mockRepository = new MockRepository<Cart>();
