@@ -19,6 +19,7 @@ namespace WoodworkingShop.Domain
         {
             Cart cart = await _carts.GetByIdAsync(cartId);
             cart.AddProducts(productId, quantity);
+            await _carts.UpdateAsync(cart);
         }
 
         public async Task RemoveProductsAsync(Guid cartId, Guid productId, int quantity)

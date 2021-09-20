@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using WoodworkingShop.Domain;
 
-namespace WoodworkingShop.Domain
+namespace WoodworkingShop.Infrastructure
 {
     public class QueryOptionsEvaluator<T> : IQueryOptionsEvaluator<T>  where T: BaseEntity
     {
@@ -20,6 +22,14 @@ namespace WoodworkingShop.Domain
             if (options.HasOrderByDescending())
             {
                 query = query.OrderByDescending(options.OrderByDescending);
+            }
+
+            if (options.HasIncludes())
+            {
+                foreach( string includeStr in options.IncludeStrings)
+                {
+                    query = query.Include(includeStr);
+                }
             }
 
             return query;

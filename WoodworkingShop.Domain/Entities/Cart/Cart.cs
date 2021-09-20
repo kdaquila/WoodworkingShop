@@ -8,7 +8,7 @@ namespace WoodworkingShop.Domain
 {
     public class Cart : BaseEntity
     {
-        public List<CartItemSet> CartItemSets;
+        public List<CartItemSet> CartItemSets { get; set; }
 
         public Cart()
         {

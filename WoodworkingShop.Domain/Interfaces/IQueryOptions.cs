@@ -9,6 +9,7 @@ namespace WoodworkingShop.Domain
 {
     public interface IQueryOptions<T>
     {
+        public List<String> IncludeStrings { get; set; }
         public Expression<Func<T, object>> OrderBy { get; set; }
         public Expression<Func<T, object>> OrderByDescending { get; set; }
         public Expression<Func<T, bool>> Where { get; set; }
@@ -16,5 +17,6 @@ namespace WoodworkingShop.Domain
         public bool HasWhere();
         public bool HasOrderBy();
         public bool HasOrderByDescending();
+        public bool HasIncludes();
     }
 }

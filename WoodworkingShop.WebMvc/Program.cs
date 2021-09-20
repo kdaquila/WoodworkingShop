@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WoodworkingShop.Domain;
 using WoodworkingShop.Infrastructure;
 
 namespace WoodworkingShop.WebMvc
@@ -22,7 +23,9 @@ namespace WoodworkingShop.WebMvc
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();                
                 var dbContext = services.GetRequiredService<AppDbContext>();
-                await AppDbContextSeed.Seed(dbContext, loggerFactory);
+                AppDbContextSeed seeder = new AppDbContextSeed();
+                ICartService cartService = services.GetRequiredService<ICartService>();
+                await seeder.Seed(dbContext, loggerFactory, cartService);
             }
 
             host.Run();

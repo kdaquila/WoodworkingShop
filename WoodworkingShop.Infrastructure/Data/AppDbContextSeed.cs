@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,16 @@ namespace WoodworkingShop.Infrastructure
 {
     public class AppDbContextSeed
     {
-        public static async Task Seed(AppDbContext appDbContext, ILoggerFactory loggerFactory)
+        public async Task Seed(AppDbContext appDbContext, ILoggerFactory loggerFactory, ICartService cartService)
+        {
+            await SeedProducts(appDbContext);
+            await SeedCart(appDbContext, cartService);
+
+            ILogger logger = loggerFactory.CreateLogger<AppDbContextSeed>();
+            logger.LogDebug("Database successfully seeded");
+        }
+
+        public async Task SeedProducts(AppDbContext appDbContext)
         {
             if (!appDbContext.Products.Any(p => p.Name == "Table Saw"))
             {
@@ -28,9 +38,21 @@ namespace WoodworkingShop.Infrastructure
             }
 
             await appDbContext.SaveChangesAsync();
+        }
 
-            ILogger logger = loggerFactory.CreateLogger<AppDbContextSeed>();
-            logger.LogDebug("Database successfully seeded");
+        public async Task SeedCart(AppDbContext appDbContext, ICartService cartService)
+        {
+            Guid demoCartId = new Guid("fd8239b1-7dd1-40a0-ae08-ee290007a062");
+            if (!appDbContext.Carts.Any(c => c.Id == demoCartId))
+            {
+                await cartService.CreateNewCartAsync(demoCartId);
+                Product tableSawProduct = await appDbContext.Products.FirstOrDefaultAsync(p => p.Name == "Table Saw");
+                Product mitreSawProduct = await appDbContext.Products.FirstOrDefaultAsync(p => p.Name == "Mitre Saw");
+                await cartService.AddProductsAsync(demoCartId, tableSawProduct.Id, 10);
+                await cartService.AddProductsAsync(demoCartId, mitreSawProduct.Id, 5);
+            }
+
+            await appDbContext.SaveChangesAsync();
         }
     }
 }

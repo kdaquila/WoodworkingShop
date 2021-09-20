@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
+using WoodworkingShop.Infrastructure;
 
 namespace WoodworkingShop.WebMvc
 {

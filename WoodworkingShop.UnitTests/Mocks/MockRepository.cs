@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
+using WoodworkingShop.Infrastructure;
 
 namespace WoodworkingShop.UnitTests
 {

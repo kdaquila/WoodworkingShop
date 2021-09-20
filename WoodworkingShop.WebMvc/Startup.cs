@@ -24,6 +24,8 @@ namespace WoodworkingShop.WebMvc
         {
             services.AddScoped(typeof(QueryOptionsEvaluator<>));
             services.AddScoped<ProductViewModelService>();
+            services.AddScoped<CartViewModelService>();
+            services.AddScoped(typeof(ICartService), typeof(CartService));
             services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
 
             services.AddControllersWithViews();

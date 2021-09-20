@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WoodworkingShop.Domain\WoodworkingShop.Domain.csproj" />
+    <ProjectReference Include="..\WoodworkingShop.Infrastructure\WoodworkingShop.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,20 @@
+﻿@model CartViewModel
+
+@{
+    //ViewData["Title"] = "Woodworking Shop: Cart";
+}
+
+<div>
+    <h1>Shopping Cart</h1>
+
+
+    @foreach (CartItemSetViewModel itemSet in Model.ItemSets)
+    {
+        <div>
+            <span>@itemSet.ProductName</span>
+            <span>@itemSet.Quantity</span>
+        </div>
+    }
+
+</div>
+
