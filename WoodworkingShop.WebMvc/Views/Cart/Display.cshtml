@@ -13,7 +13,8 @@
         <div class="my-3">
             <span class="mr-3">@itemSet.ProductName</span>
             <form asp-controller="Cart" asp-action="SetProduct" method="post">
-                <input type="number" value="@(itemSet.Quantity)" />
+                <input type="hidden" name="ProductId" value="@(itemSet.ProductId)" />
+                <input type="number" name="ProductQuantity" value="@(itemSet.Quantity)" />
                 <button>Apply Change</button>
             </form>
         </div>

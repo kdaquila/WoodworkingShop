@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,28 +19,31 @@ namespace WoodworkingShop.WebMvc.Controllers
             _cartService = cartService;
         }
 
-        public async Task<IActionResult> Display(string id)
+        [HttpGet]
+        public async Task<IActionResult> Display()
         {
-            id = "fd8239b1-7dd1-40a0-ae08-ee290007a062";
-            CartViewModel cartViewModel = await _cartViewModelService.GetCartViewModel(id);
+            Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
+            CartViewModel cartViewModel = await _cartViewModelService.GetCartViewModel(cartId);
             return View(cartViewModel);
         }
 
-        public async Task<IActionResult> AddProduct(string id)
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(
+            [FromForm] Guid ProductId,
+            [FromForm] int ProductQuantity)
         {
-            Guid cartId = new Guid("fd8239b1-7dd1-40a0-ae08-ee290007a062");
-            Guid tableSawId = new Guid("e0a4f9ef-306f-4504-a9a5-131958600f5b");
-            int quantity = 10;
-            await _cartService.AddProductsAsync(cartId, tableSawId, quantity);
+            Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
+            await _cartService.AddProductsAsync(cartId, ProductId, ProductQuantity);
             return RedirectToAction("Display");
         }
 
-        public async Task<IActionResult> SetProduct(string id)
+        [HttpPost]
+        public async Task<IActionResult> SetProduct(
+            [FromForm] Guid ProductId,
+            [FromForm] int ProductQuantity)
         {
-            Guid cartId = new Guid("fd8239b1-7dd1-40a0-ae08-ee290007a062");
-            Guid tableSawId = new Guid("e0a4f9ef-306f-4504-a9a5-131958600f5b");
-            int quantity = 20;
-            await _cartService.SetProductsAsync(cartId, tableSawId, quantity);
+            Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
+            await _cartService.SetProductsAsync(cartId, ProductId, ProductQuantity);
             return RedirectToAction("Display");
         }
     }

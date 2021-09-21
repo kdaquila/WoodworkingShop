@@ -16,7 +16,8 @@
                     <p>@product.Description</p>
                     <p>$@product.Price</p>
                     <form asp-controller="Cart" asp-action="AddProduct" method="post">
-                        <input type="number" />
+                        <input type="hidden" name="ProductId" value="@(product.Id)" />
+                        <input type="number" name="ProductQuantity" value="1" />
                         <button>Add to Cart</button>
                     </form>
                 </div>

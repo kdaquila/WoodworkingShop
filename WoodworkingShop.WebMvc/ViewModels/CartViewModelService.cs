@@ -18,9 +18,8 @@ namespace WoodworkingShop.WebMvc
             _cartService = cartService;
         }
 
-        public async Task<CartViewModel> GetCartViewModel(string cartIdStr)
+        public async Task<CartViewModel> GetCartViewModel(Guid cartId)
         {
-            Guid cartId = new Guid(cartIdStr);
             CartViewModel cartViewModel = new CartViewModel();
             QueryOptions<Cart> options = new QueryOptions<Cart>();
             options.IncludeStrings.Add("CartItemSets");

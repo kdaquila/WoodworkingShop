@@ -28,6 +28,9 @@ namespace WoodworkingShop.WebMvc
             services.AddScoped(typeof(ICartService), typeof(CartService));
             services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
 
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>(options =>
@@ -65,12 +68,16 @@ namespace WoodworkingShop.WebMvc
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
+            app.UseCart();
+
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
