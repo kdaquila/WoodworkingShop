@@ -22,10 +22,10 @@ namespace WoodworkingShop.WebMvc
         {
             CartViewModel cartViewModel = new CartViewModel();
             QueryOptions<Cart> options = new QueryOptions<Cart>();
+            options.Where = c => c.Id == cartId;
             options.IncludeStrings.Add("CartItemSets");
             options.IncludeStrings.Add("CartItemSets.Product");
-            List<Cart> carts = await _carts.ListAsync(options);
-            Cart cart = carts[0];
+            Cart cart = await _carts.FirstOrDefaultAsync(options);
 
             // Create cart if it no Id is given
             if (cart == null)
