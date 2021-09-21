@@ -10,9 +10,9 @@ namespace WoodworkingShop.Infrastructure
     public class AppRepository<T> : IRepository<T> where T: BaseEntity
     {
         public AppDbContext _appDbContext { get; set; }
-        public QueryOptionsEvaluator<T> _queryOptionsEvaluator { get; set; }
+        public IQueryOptionsEvaluator<T> _queryOptionsEvaluator { get; set; }
 
-        public AppRepository(AppDbContext appDbContext, QueryOptionsEvaluator<T> queryOptionsEvaluator)
+        public AppRepository(AppDbContext appDbContext, IQueryOptionsEvaluator<T> queryOptionsEvaluator)
         {
             _appDbContext = appDbContext;
             _queryOptionsEvaluator = queryOptionsEvaluator;
