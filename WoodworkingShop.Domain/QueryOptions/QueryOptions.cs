@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
 
-namespace WoodworkingShop.Infrastructure
+namespace WoodworkingShop.Domain
 {
     public class QueryOptions<T> : IQueryOptions<T>
     {

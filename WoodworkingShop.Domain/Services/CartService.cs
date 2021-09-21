@@ -17,15 +17,22 @@ namespace WoodworkingShop.Domain
 
         public async Task AddProductsAsync(Guid cartId, Guid productId, int quantity)
         {
-            Cart cart = await _carts.GetByIdAsync(cartId);
+            IQueryOptions<Cart> options = new QueryOptions<Cart>();
+            options.Where = c => c.Id == cartId;
+            options.IncludeStrings.Add("CartItemSets");
+            Cart cart = await _carts.FirstOrDefaultAsync(options);
             cart.AddProducts(productId, quantity);
             await _carts.UpdateAsync(cart);
         }
 
         public async Task RemoveProductsAsync(Guid cartId, Guid productId, int quantity)
         {
-            Cart cart = await _carts.GetByIdAsync(cartId);
+            IQueryOptions<Cart> options = new QueryOptions<Cart>();
+            options.Where = c => c.Id == cartId;
+            options.IncludeStrings.Add("CartItemSets");
+            Cart cart = await _carts.FirstOrDefaultAsync(options);
             cart.RemoveProducts(productId, quantity);
+            await _carts.UpdateAsync(cart);
         }
 
         public async Task CreateNewCartAsync(Guid cartId)

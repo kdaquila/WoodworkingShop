@@ -22,19 +22,22 @@ namespace WoodworkingShop.Infrastructure
 
         public async Task SeedProducts(AppDbContext appDbContext)
         {
+            Guid tableSawId = new Guid("e0a4f9ef-306f-4504-a9a5-131958600f5b");
             if (!appDbContext.Products.Any(p => p.Name == "Table Saw"))
             {
-                await appDbContext.Products.AddAsync(new Product(Guid.NewGuid(), "Table Saw", "A jobsite table saw", 300.0m));
+                await appDbContext.Products.AddAsync(new Product(tableSawId, "Table Saw", "A jobsite table saw", 300.0m));
             }
 
+            Guid mitreSawId = new Guid("5a91344f-f23b-4144-92b4-c360dbe362d4");
             if (!appDbContext.Products.Any(p => p.Name == "Mitre Saw"))
             {
-                await appDbContext.Products.AddAsync(new Product(Guid.NewGuid(), "Mitre Saw", "A jobsite mitre saw", 200.0m));
+                await appDbContext.Products.AddAsync(new Product(mitreSawId, "Mitre Saw", "A jobsite mitre saw", 200.0m));
             }
 
+            Guid circularSawId = new Guid("2e581ab4-9ae1-4e8b-b87a-cf101e0d191b");
             if (!appDbContext.Products.Any(p => p.Name == "Circular Saw"))
             {
-                await appDbContext.Products.AddAsync(new Product(Guid.NewGuid(), "Circular Saw", "A jobsite circular saw", 100.0m));
+                await appDbContext.Products.AddAsync(new Product(circularSawId, "Circular Saw", "A jobsite circular saw", 100.0m));
             }
 
             await appDbContext.SaveChangesAsync();

@@ -53,5 +53,12 @@ namespace WoodworkingShop.Infrastructure
             _appDbContext.Entry(entity).State = EntityState.Modified;
             await _appDbContext.SaveChangesAsync();
         }
+
+        public async Task<T> FirstOrDefaultAsync(IQueryOptions<T> options)
+        {
+            IQueryable<T> query = _appDbContext.Set<T>();
+            query = _queryOptionsEvaluator.Evaluate(query, options);
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

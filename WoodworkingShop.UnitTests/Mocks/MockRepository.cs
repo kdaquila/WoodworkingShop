@@ -30,6 +30,11 @@ namespace WoodworkingShop.UnitTests
             await Task.Run(() => _storage.Remove(entity));
         }
 
+        public async Task<T> FirstOrDefaultAsync(IQueryOptions<T> options)
+        {
+            return await Task.Run(() => _queryEvaluator.Evaluate(_storage.AsQueryable(), options).FirstOrDefault());
+        }
+
         public async Task<T> GetByIdAsync(Guid id)
         {
             return await Task.Run(() => _storage.Find(o => o.Id == id ));

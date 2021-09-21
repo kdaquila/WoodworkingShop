@@ -15,6 +15,10 @@
                     <h2>@product.Name</h2>
                     <p>@product.Description</p>
                     <p>$@product.Price</p>
+                    <form asp-controller="Cart" asp-action="AddProduct" method="post">
+                        <input type="number" />
+                        <button>Add to Cart</button>
+                    </form>
                 </div>
             }
         </div>
