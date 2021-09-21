@@ -46,5 +46,19 @@ namespace WoodworkingShop.Domain
             }
         }
 
+        public void SetProducts(Guid productId, int quantity)
+        {
+            CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
+
+            if (exitingCartItemSet == null)
+            {
+                CartItemSets.Add(new CartItemSet(Id, productId, quantity));
+            }
+            else
+            {
+                exitingCartItemSet.Quantity = quantity;
+            }
+        }
+
     }
 }

@@ -41,5 +41,15 @@ namespace WoodworkingShop.Domain
             cart.Id = cartId;
             await _carts.AddAsync(cart);
         }
+
+        public async Task SetProductsAsync(Guid cartId, Guid productId, int quantity)
+        {
+            IQueryOptions<Cart> options = new QueryOptions<Cart>();
+            options.Where = c => c.Id == cartId;
+            options.IncludeStrings.Add("CartItemSets");
+            Cart cart = await _carts.FirstOrDefaultAsync(options);
+            cart.SetProducts(productId, quantity);
+            await _carts.UpdateAsync(cart);
+        }
     }
 }

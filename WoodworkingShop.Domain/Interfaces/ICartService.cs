@@ -11,5 +11,6 @@ namespace WoodworkingShop.Domain
         public Task CreateNewCartAsync(Guid cartId);
         public Task AddProductsAsync(Guid cartId, Guid productId, int quantity);
         public Task RemoveProductsAsync(Guid cartId, Guid productId, int quantity);
+        public Task SetProductsAsync(Guid cartId, Guid productId, int quantity);
     }
 }

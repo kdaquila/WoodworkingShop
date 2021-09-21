@@ -33,5 +33,14 @@ namespace WoodworkingShop.WebMvc.Controllers
             await _cartService.AddProductsAsync(cartId, tableSawId, quantity);
             return RedirectToAction("Display");
         }
+
+        public async Task<IActionResult> SetProduct(string id)
+        {
+            Guid cartId = new Guid("fd8239b1-7dd1-40a0-ae08-ee290007a062");
+            Guid tableSawId = new Guid("e0a4f9ef-306f-4504-a9a5-131958600f5b");
+            int quantity = 20;
+            await _cartService.SetProductsAsync(cartId, tableSawId, quantity);
+            return RedirectToAction("Display");
+        }
     }
 }

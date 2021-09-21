@@ -10,9 +10,12 @@
 
     @foreach (CartItemSetViewModel itemSet in Model.ItemSets)
     {
-        <div>
-            <span>@itemSet.ProductName</span>
-            <span>@itemSet.Quantity</span>
+        <div class="my-3">
+            <span class="mr-3">@itemSet.ProductName</span>
+            <form asp-controller="Cart" asp-action="SetProduct" method="post">
+                <input type="number" value="@(itemSet.Quantity)" />
+                <button>Apply Change</button>
+            </form>
         </div>
     }
 
