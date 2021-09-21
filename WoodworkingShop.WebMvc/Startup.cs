@@ -22,9 +22,9 @@ namespace WoodworkingShop.WebMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped(typeof(QueryOptionsEvaluator<>));
             services.AddScoped<ProductViewModelService>();
             services.AddScoped<CartViewModelService>();
+            services.AddScoped(typeof(IQueryOptionsEvaluator<>), typeof(QueryOptionsEvaluator<>));
             services.AddScoped(typeof(ICartService), typeof(CartService));
             services.AddScoped(typeof(IRepository<>), typeof(AppRepository<>));
 
