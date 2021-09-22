@@ -17,56 +17,66 @@ namespace WoodworkingShop.Domain
 
         public void AddProducts(Guid productId, int quantity)
         {
-            validateQuantity(quantity);
-
-            CartItemSet itemSet = findItemSet(productId);
-
-            if (itemSet == null && quantity > 0)
+            try
+            {
+                requireMinimumQuantity(quantity, 1);
+                CartItemSet itemSet = findItemSet(productId);
+                incrementItemSetQuantity(itemSet, quantity);
+            }
+            catch (CartItemSetNotFound)
             {
                 createItemSet(CartItemSets, Id, productId, quantity);
             }
-            else if (itemSet != null && quantity > 0)
-            {
-                incrementItemSetQuantity(itemSet, quantity);
-            }
+                     
         }
 
         public void SetProducts(Guid productId, int quantity)
         {
-            validateQuantity(quantity);
-
-            CartItemSet itemSet = findItemSet(productId);
-
-            if (itemSet == null && quantity > 0)
+            try
+            {
+                requireMinimumQuantity(quantity, 0);
+                CartItemSet itemSet = findItemSet(productId);
+                if (quantity == 0)
+                {
+                    deleteItemSet(CartItemSets, itemSet);
+                }
+                else
+                {
+                    setItemSetQuantity(itemSet, quantity);
+                }
+            }
+            catch (CartItemSetNotFound)
             {
                 createItemSet(CartItemSets, Id, productId, quantity);
             }
-            else if (itemSet != null && quantity > 0)
-            {
-                setItemSetQuantity(itemSet, quantity);
-            }
-            else if (itemSet != null && quantity == 0)
-            {
-                deleteItemSet(CartItemSets, itemSet);
-            }
         }
 
-        private void validateQuantity(int quantity)
+        private void requireMinimumQuantity(int quantity, int minimum = 0)
         {
-            if (quantity < 0) {
-                throw new ArgumentException("quantity cannot be less than zero");
+            if (quantity < minimum)
+            {
+                throw new ArgumentException($"quantity cannot be less than {minimum}");
             }
         }
 
         private CartItemSet findItemSet(Guid productId)
         {
-            return CartItemSets.Find(c => c.ProductId == productId);
-
+            CartItemSet itemSet = CartItemSets.Find(c => c.ProductId == productId);
+            if (itemSet == null)
+            {
+                throw new CartItemSetNotFound($"Could not find an item set for the ProductId: {productId}");
+            }
+            return itemSet;
         }
 
         private void createItemSet(List<CartItemSet> itemSets, Guid cartId, Guid productId, int quantity)
         {
             itemSets.Add(new CartItemSet(Id, productId, quantity));
+        }
+
+        private void deleteItemSet(List<CartItemSet> itemSets, CartItemSet itemSet)
+        {
+            itemSets.Remove(itemSet);
         }
 
         private void incrementItemSetQuantity(CartItemSet itemSet, int quantity)
@@ -79,9 +89,5 @@ namespace WoodworkingShop.Domain
             itemSet.Quantity = quantity;
         }
 
-        private void deleteItemSet(List<CartItemSet> itemSets, CartItemSet itemSet)
-        {
-            itemSets.Remove(itemSet);
-        }
     }
 }
