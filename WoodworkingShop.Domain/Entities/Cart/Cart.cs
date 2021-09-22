@@ -17,35 +17,71 @@ namespace WoodworkingShop.Domain
 
         public void AddProducts(Guid productId, int quantity)
         {
-            if (quantity < 1) throw new CartException("quantity cannot be less than one");
+            validateQuantity(quantity);
 
-            CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
+            CartItemSet itemSet = findItemSet(productId);
 
-            if (exitingCartItemSet == null)
+            if (itemSet == null && quantity > 0)
             {
-                CartItemSets.Add(new CartItemSet(Id, productId, quantity));
+                createItemSet(CartItemSets, Id, productId, quantity);
             }
-            else
+            else if (itemSet != null && quantity > 0)
             {
-                exitingCartItemSet.AddQuantity(quantity);
-            }            
+                incrementItemSetQuantity(itemSet, quantity);
+            }
         }
 
         public void SetProducts(Guid productId, int quantity)
         {
-            if (quantity < 0) throw new CartException("quantity cannot be less than zero");
+            validateQuantity(quantity);
 
-            CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
+            CartItemSet itemSet = findItemSet(productId);
 
-            if (exitingCartItemSet == null)
+            if (itemSet == null && quantity > 0)
             {
-                CartItemSets.Add(new CartItemSet(Id, productId, quantity));
+                createItemSet(CartItemSets, Id, productId, quantity);
             }
-            else
+            else if (itemSet != null && quantity > 0)
             {
-                exitingCartItemSet.Quantity = quantity;
+                setItemSetQuantity(itemSet, quantity);
+            }
+            else if (itemSet != null && quantity == 0)
+            {
+                deleteItemSet(CartItemSets, itemSet);
             }
         }
 
+        private void validateQuantity(int quantity)
+        {
+            if (quantity < 0) {
+                throw new ArgumentException("quantity cannot be less than zero");
+            }
+        }
+
+        private CartItemSet findItemSet(Guid productId)
+        {
+            return CartItemSets.Find(c => c.ProductId == productId);
+
+        }
+
+        private void createItemSet(List<CartItemSet> itemSets, Guid cartId, Guid productId, int quantity)
+        {
+            itemSets.Add(new CartItemSet(Id, productId, quantity));
+        }
+
+        private void incrementItemSetQuantity(CartItemSet itemSet, int quantity)
+        {
+            itemSet.Quantity += quantity;
+        }
+
+        private void setItemSetQuantity(CartItemSet itemSet, int quantity)
+        {
+            itemSet.Quantity = quantity;
+        }
+
+        private void deleteItemSet(List<CartItemSet> itemSets, CartItemSet itemSet)
+        {
+            itemSets.Remove(itemSet);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace WoodworkingShop.Domain
             get {
                 return _quantity;
             } set {
-                if (value < 0) throw new CartItemSetException("Quantity cannot be negative");
+                if (value < 0) throw new ArgumentException("Quantity cannot be negative");
                 _quantity = value;
             } }
 
@@ -26,16 +26,6 @@ namespace WoodworkingShop.Domain
             CartId = cartId;
             ProductId = productId;
             Quantity = quantity;
-        }
-
-        public void AddQuantity(int add)
-        {
-            Quantity += add;
-        }
-
-        public void SubtractQuantity(int subtract)
-        {
-            Quantity -= subtract;
         }
     }
 }
