@@ -16,10 +16,10 @@ namespace WoodworkingShop.UnitTests
             IRepository<Cart> mockRepository = new MockRepository<Cart>();
             ICartService cartService = new CartService(mockRepository);
             Guid cartId = Guid.NewGuid();
+
             await cartService.CreateNewCartAsync(cartId);
 
-            Cart storedCart = await mockRepository.GetByIdAsync(cartId);
-            Assert.Equal(cartId, storedCart.Id);
+            Assert.NotNull(await mockRepository.GetByIdAsync(cartId));
         }
 
         [Fact]
@@ -28,9 +28,9 @@ namespace WoodworkingShop.UnitTests
             IRepository<Cart> mockRepository = new MockRepository<Cart>();
             ICartService cartService = new CartService(mockRepository);
             Guid cartId = Guid.NewGuid();
-            await cartService.CreateNewCartAsync(cartId);
             Guid productId = Guid.NewGuid();
             int quantity = 10;
+            await cartService.CreateNewCartAsync(cartId);
 
             await cartService.AddProductsAsync(cartId, productId, quantity);
 
@@ -45,9 +45,9 @@ namespace WoodworkingShop.UnitTests
             IRepository<Cart> mockRepository = new MockRepository<Cart>();
             ICartService cartService = new CartService(mockRepository);
             Guid cartId = Guid.NewGuid();
-            await cartService.CreateNewCartAsync(cartId);
             Guid productId = Guid.NewGuid();
             int quantity = 10;
+            await cartService.CreateNewCartAsync(cartId);
 
             await cartService.SetProductsAsync(cartId, productId, quantity);
 
