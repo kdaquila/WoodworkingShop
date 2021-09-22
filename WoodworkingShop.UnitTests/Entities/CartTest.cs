@@ -21,16 +21,5 @@ namespace WoodworkingShop.UnitTests
             Assert.Equal(10, cart.CartItemSets.Find(c => c.ProductId == productId).Quantity);
         }
 
-        [Fact]
-        public void RemoveProductFromCart()
-        {
-            Cart cart = new Cart();
-            Guid productId = Guid.NewGuid();
-
-            cart.AddProducts(productId: productId, quantity: 10);
-            cart.RemoveProducts(productId: productId, quantity: 5);
-
-            Assert.Equal(5, cart.CartItemSets.Find(c => c.ProductId == productId).Quantity);
-        }
     }
 }

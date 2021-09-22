@@ -11,7 +11,15 @@ namespace WoodworkingShop.Domain
         public Guid CartId { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { 
+            get {
+                return _quantity;
+            } set {
+                if (value < 0) throw new CartItemSetException("Quantity cannot be negative");
+                _quantity = value;
+            } }
+
+        private int _quantity;
 
         public CartItemSet(Guid cartId, Guid productId, int quantity)
         {

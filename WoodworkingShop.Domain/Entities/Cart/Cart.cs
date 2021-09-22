@@ -17,6 +17,8 @@ namespace WoodworkingShop.Domain
 
         public void AddProducts(Guid productId, int quantity)
         {
+            if (quantity < 1) throw new CartException("quantity cannot be less than one");
+
             CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
 
             if (exitingCartItemSet == null)
@@ -29,25 +31,10 @@ namespace WoodworkingShop.Domain
             }            
         }
 
-        public void RemoveProducts(Guid productId, int quantity)
-        {
-            CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
-
-            if (exitingCartItemSet == null)
-            {
-                return;
-            }
-
-            exitingCartItemSet.SubtractQuantity(quantity);
-
-            if (exitingCartItemSet.Quantity < 0)
-            {
-                CartItemSets.Remove(exitingCartItemSet);
-            }
-        }
-
         public void SetProducts(Guid productId, int quantity)
         {
+            if (quantity < 0) throw new CartException("quantity cannot be less than zero");
+
             CartItemSet exitingCartItemSet = CartItemSets.Find(c => c.ProductId == productId);
 
             if (exitingCartItemSet == null)

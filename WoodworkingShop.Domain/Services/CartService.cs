@@ -21,17 +21,10 @@ namespace WoodworkingShop.Domain
             options.Where = c => c.Id == cartId;
             options.IncludeStrings.Add("CartItemSets");
             Cart cart = await _carts.FirstOrDefaultAsync(options);
-            cart.AddProducts(productId, quantity);
-            await _carts.UpdateAsync(cart);
-        }
 
-        public async Task RemoveProductsAsync(Guid cartId, Guid productId, int quantity)
-        {
-            IQueryOptions<Cart> options = new QueryOptions<Cart>();
-            options.Where = c => c.Id == cartId;
-            options.IncludeStrings.Add("CartItemSets");
-            Cart cart = await _carts.FirstOrDefaultAsync(options);
-            cart.RemoveProducts(productId, quantity);
+            if (cart == null) throw new CartException("Cannot not add products to non-existing cart.");
+
+            cart.AddProducts(productId, quantity);
             await _carts.UpdateAsync(cart);
         }
 
@@ -48,6 +41,9 @@ namespace WoodworkingShop.Domain
             options.Where = c => c.Id == cartId;
             options.IncludeStrings.Add("CartItemSets");
             Cart cart = await _carts.FirstOrDefaultAsync(options);
+
+            if (cart == null) throw new CartException("Cannot not set products on non-existing cart.");
+
             cart.SetProducts(productId, quantity);
             await _carts.UpdateAsync(cart);
         }

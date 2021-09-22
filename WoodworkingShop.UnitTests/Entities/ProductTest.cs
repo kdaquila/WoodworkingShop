@@ -30,7 +30,7 @@ namespace WoodworkingShop.UnitTests
         {
             Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
                       
-            Assert.Throws<ArgumentException>(() => product.Name = null);
+            Assert.Throws<ProductException>(() => product.Name = null);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace WoodworkingShop.UnitTests
         {
             Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
-            Assert.Throws<ArgumentException>(() => product.Name = "");
+            Assert.Throws<ProductException>(() => product.Name = "");
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace WoodworkingShop.UnitTests
         {
             Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
-            Assert.Throws<ArgumentException>(() => product.Description = "");
+            Assert.Throws<ProductException>(() => product.Description = "");
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace WoodworkingShop.UnitTests
         {
             Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
-            Assert.Throws<ArgumentException>(() => product.Description = null);
+            Assert.Throws<ProductException>(() => product.Description = null);
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace WoodworkingShop.UnitTests
         {
             Product product = new Product(Guid.NewGuid(), name: DefaultName, description: DefaultDescription, price: DefaultPrice);
 
-            Assert.Throws<ArgumentException>(() => product.Price = -200.0m);
+            Assert.Throws<ProductException>(() => product.Price = -200.0m);
         }
     }
 
