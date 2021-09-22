@@ -21,9 +21,7 @@ namespace WoodworkingShop.IntegrationTests.Products
 
             await productRepo.DeleteAsync(product);
 
-            Product deletedProduct = await productRepo.GetByIdAsync(new Guid("a2d23a0e-aaa7-4d66-9c9e-08d974730ded"));
-
-            Assert.Null(deletedProduct);
+            await Assert.ThrowsAsync<DbObjectNotFound>(async () => await productRepo.GetByIdAsync(new Guid("a2d23a0e-aaa7-4d66-9c9e-08d974730ded")));
         }
     }
 }

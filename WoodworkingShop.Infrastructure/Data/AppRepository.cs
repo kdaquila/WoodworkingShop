@@ -25,15 +25,14 @@ namespace WoodworkingShop.Infrastructure
             return entity;
         }
 
-        public async Task DeleteAsync(T entity)
-        {
-            _appDbContext.Set<T>().Remove(entity);
-            await _appDbContext.SaveChangesAsync();
-        }
-
         public async Task<T> GetByIdAsync(Guid id)
         {
-            return await _appDbContext.Set<T>().FindAsync(new object[] { id });
+            T result = await _appDbContext.Set<T>().FindAsync(new object[] { id });
+            if (result == null)
+            {
+                throw new DbObjectNotFound($"Could not find the object with Id: {id}");
+            }
+            return result;
         }
 
         public async Task<List<T>> ListAllAsync()
@@ -48,17 +47,23 @@ namespace WoodworkingShop.Infrastructure
             return await query.ToListAsync();
         }
 
-        public async Task UpdateAsync(T entity)
-        {
-            _appDbContext.Entry(entity).State = EntityState.Modified;
-            await _appDbContext.SaveChangesAsync();
-        }
-
         public async Task<T> FirstOrDefaultAsync(IQueryOptions<T> options)
         {
             IQueryable<T> query = _appDbContext.Set<T>();
             query = _queryOptionsEvaluator.Evaluate(query, options);
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            _appDbContext.Set<T>().Remove(entity);
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            _appDbContext.Entry(entity).State = EntityState.Modified;
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }
