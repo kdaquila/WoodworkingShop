@@ -19,10 +19,9 @@ namespace WoodworkingShop.UnitTests
             _queryEvaluator = new QueryOptionsEvaluator<T>();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            await Task.Run(() => _storage.Add(entity));        
-            return entity;
+            await Task.Run(() => _storage.Add(entity));   
         }
 
         public async Task DeleteAsync(T entity)
@@ -37,7 +36,12 @@ namespace WoodworkingShop.UnitTests
 
         public async Task<T> GetByIdAsync(Guid id)
         {
-            return await Task.Run(() => _storage.Find(o => o.Id == id ));
+            T result = await Task.Run(() => _storage.Find(o => o.Id == id));
+            if (result == null)
+            {
+                throw new DbObjectNotFound($"Could not find the object with Id: {id}");
+            }
+            return result;
         }
 
         public async Task<List<T>> ListAllAsync()
@@ -54,5 +58,6 @@ namespace WoodworkingShop.UnitTests
         {
             await Task.Run(() => _storage[_storage.FindIndex(o => o.Id == entity.Id)] = entity);
         }
+
     }
 }

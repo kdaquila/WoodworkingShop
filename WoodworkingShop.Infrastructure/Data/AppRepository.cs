@@ -18,11 +18,10 @@ namespace WoodworkingShop.Infrastructure
             _queryOptionsEvaluator = queryOptionsEvaluator;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
             await _appDbContext.Set<T>().AddAsync(entity);
             await _appDbContext.SaveChangesAsync();
-            return entity;
         }
 
         public async Task<T> GetByIdAsync(Guid id)

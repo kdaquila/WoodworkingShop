@@ -12,7 +12,7 @@ namespace WoodworkingShop.Domain
         Task<T> FirstOrDefaultAsync(IQueryOptions<T> options);
         Task<List<T>> ListAllAsync();
         Task<List<T>> ListAsync(IQueryOptions<T> options);
-        Task<T> AddAsync(T entity);
+        Task AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         //Task<int> CountAsync(ISpecification<T> spec, CancellationToken cancellationToken = default);

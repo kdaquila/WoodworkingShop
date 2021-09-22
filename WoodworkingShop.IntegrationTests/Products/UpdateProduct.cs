@@ -13,11 +13,13 @@ namespace WoodworkingShop.IntegrationTests.Products
         {
             IRepository<Product> productRepo = new AppRepository<Product>(base._dbContext, new QueryOptionsEvaluator<Product>());
 
-            Product product = await productRepo.AddAsync(new Product(
+            Product product = new Product(
                 id: new Guid("a2d23a0e-aaa7-4d66-9c9e-08d974730ded"),
                 name: "Band Saw",
                 description: "Benchtop band saw",
-                price: 400.0m));
+                price: 400.0m);
+
+            await productRepo.AddAsync(product);
 
             product.Name = "Large Band Saw";
 
