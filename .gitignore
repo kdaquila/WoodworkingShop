@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /WoodworkingShop.WebMvc/appsettings.json
 /WoodworkingShop.WebMvc/appsettings.Development.json
+*test.json
