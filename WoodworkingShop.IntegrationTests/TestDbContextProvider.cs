@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace WoodworkingShop.IntegrationTests
 {
     public class TestDbContextProvider
     {
-        public static AppDbContext createNewContext()
+        public static async Task<AppDbContext> createNewContext()
         {
             IConfiguration configuration = GetConfiguration();
             string connStr = configuration.GetConnectionString("WoodworkingShopTesting");
@@ -20,6 +21,12 @@ namespace WoodworkingShop.IntegrationTests
             AppDbContext context = new AppDbContext(new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer(connStr)
                 .Options); ;
+
+            IRepository<Cart> carts = new AppRepository<Cart>(context, new QueryOptionsEvaluator<Cart>());
+            ICartService cartService = new CartService(carts);
+            var loggerFactory = new LoggerFactory();
+            AppDbContextSeed seeder = new AppDbContextSeed();
+            await seeder.Seed(context, loggerFactory, cartService);
 
             context.Database.BeginTransaction();
 

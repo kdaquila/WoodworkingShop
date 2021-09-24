@@ -23,8 +23,7 @@ namespace WoodworkingShop.WebMvc
             CartViewModel cartViewModel = new CartViewModel();
             QueryOptions<Cart> options = new QueryOptions<Cart>();
             options.Where = c => c.Id == cartId;
-            options.IncludeStrings.Add("CartItemSets");
-            options.IncludeStrings.Add("CartItemSets.Product");
+            options.IncludeStrings.Add("CartItemSets.Product.ProductProductCategories.ProductCategory");
             Cart cart = await _carts.FirstOrDefaultAsync(options);
 
             // Create cart if it no Id is given
@@ -38,10 +37,18 @@ namespace WoodworkingShop.WebMvc
             {                
                 foreach (CartItemSet itemSet in cart.CartItemSets)
                 {
+                    List<string> categories = new List<string>();
+                    foreach (ProductProductCategory ppc in itemSet.Product.ProductProductCategories)
+                    {
+                        categories.Add(ppc.ProductCategory.Name);
+                    }
+
                     CartItemSetViewModel itemSetViewModel = new CartItemSetViewModel(
                         productId: itemSet.ProductId,
                         name: itemSet.Product.Name,
-                        quantity: itemSet.Quantity);
+                        quantity: itemSet.Quantity,
+                        category: categories
+                    );
 
                     cartViewModel.ItemSets.Add(itemSetViewModel);
                 }

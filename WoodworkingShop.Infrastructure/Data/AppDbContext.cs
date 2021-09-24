@@ -14,6 +14,8 @@ namespace WoodworkingShop.Infrastructure
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItemSet> CartItemSets { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductProductCategory> ProductProductCategories { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
@@ -21,6 +23,19 @@ namespace WoodworkingShop.Infrastructure
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<ProductProductCategory>()
+                .HasKey(ppc => new { ppc.ProductId, ppc.ProductCategoryId });
+
+            builder.Entity<ProductProductCategory>()
+                .HasOne(ppc => ppc.Product)
+                .WithMany(p => p.ProductProductCategories)
+                .HasForeignKey(ppc => ppc.ProductId);
+
+            builder.Entity<ProductProductCategory>()
+                .HasOne(ppc => ppc.ProductCategory)
+                .WithMany(pc => pc.ProductProductCategory)
+                .HasForeignKey(ppc => ppc.ProductCategoryId);
         }
     }
 }

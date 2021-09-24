@@ -47,6 +47,8 @@ namespace WoodworkingShop.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CartId");
+
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItemSets");
@@ -72,8 +74,43 @@ namespace WoodworkingShop.Infrastructure.Data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("WoodworkingShop.Domain.ProductCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("WoodworkingShop.Domain.ProductProductCategory", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "ProductCategoryId");
+
+                    b.HasIndex("ProductCategoryId");
+
+                    b.ToTable("ProductProductCategories");
+                });
+
             modelBuilder.Entity("WoodworkingShop.Domain.CartItemSet", b =>
                 {
+                    b.HasOne("WoodworkingShop.Domain.Cart", null)
+                        .WithMany("CartItemSets")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WoodworkingShop.Domain.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -81,6 +118,40 @@ namespace WoodworkingShop.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("WoodworkingShop.Domain.ProductProductCategory", b =>
+                {
+                    b.HasOne("WoodworkingShop.Domain.ProductCategory", "ProductCategory")
+                        .WithMany("ProductProductCategory")
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WoodworkingShop.Domain.Product", "Product")
+                        .WithMany("ProductProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductCategory");
+                });
+
+            modelBuilder.Entity("WoodworkingShop.Domain.Cart", b =>
+                {
+                    b.Navigation("CartItemSets");
+                });
+
+            modelBuilder.Entity("WoodworkingShop.Domain.Product", b =>
+                {
+                    b.Navigation("ProductProductCategories");
+                });
+
+            modelBuilder.Entity("WoodworkingShop.Domain.ProductCategory", b =>
+                {
+                    b.Navigation("ProductProductCategory");
                 });
 #pragma warning restore 612, 618
         }

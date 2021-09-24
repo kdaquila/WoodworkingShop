@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WoodworkingShop.Domain
 {
@@ -29,6 +30,8 @@ namespace WoodworkingShop.Domain
                 _price = value;
             } 
         }
+
+        public ICollection<ProductProductCategory> ProductProductCategories { get; set; }
 
         private string _name;
         private string _description;
