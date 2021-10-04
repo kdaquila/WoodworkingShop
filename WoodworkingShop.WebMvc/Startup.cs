@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,11 @@ namespace WoodworkingShop.WebMvc
 
             services.AddControllersWithViews();
 
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.ViewLocationExpanders.Add(new FeatureLocationExpander());
+            });
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("WoodworkingShopData"));
@@ -61,8 +67,7 @@ namespace WoodworkingShop.WebMvc
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -83,7 +88,7 @@ namespace WoodworkingShop.WebMvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=Index}/{id?}");
             });
         }
     }

@@ -8,16 +8,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using WoodworkingShop.WebMvc;
 
-namespace WoodworkingShop.WebMvc.Controllers
+namespace WoodworkingShop.WebMvc
 {
-    public class HomeController : Controller
+    public class ProductsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ProductsController> _logger;
 
         public ProductViewModelService _productViewModelService { get; }
 
-        public HomeController(
-            ILogger<HomeController> logger, 
+        public ProductsController(
+            ILogger<ProductsController> logger, 
             ProductViewModelService productViewModelService)
         {
             _logger = logger;
@@ -28,17 +28,6 @@ namespace WoodworkingShop.WebMvc.Controllers
         {
             List<ProductViewModel> productViewModels = await _productViewModelService.getProductViewModels();
             return View(productViewModels);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

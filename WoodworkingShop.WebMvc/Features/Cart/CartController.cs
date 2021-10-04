@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WoodworkingShop.Domain;
 
-namespace WoodworkingShop.WebMvc.Controllers
+namespace WoodworkingShop.WebMvc
 {
     public class CartController : Controller
     {
@@ -20,7 +20,7 @@ namespace WoodworkingShop.WebMvc.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Display()
+        public async Task<IActionResult> Index()
         {
             Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
             CartViewModel cartViewModel = await _cartViewModelService.GetCartViewModel(cartId);
@@ -34,7 +34,7 @@ namespace WoodworkingShop.WebMvc.Controllers
         {
             Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
             await _cartService.AddProductsAsync(cartId, ProductId, ProductQuantity);
-            return RedirectToAction("Display");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -44,7 +44,7 @@ namespace WoodworkingShop.WebMvc.Controllers
         {
             Guid cartId = new Guid(HttpContext.Session.GetString("CartId"));
             await _cartService.SetProductsAsync(cartId, ProductId, ProductQuantity);
-            return RedirectToAction("Display");
+            return RedirectToAction("Index");
         }
     }
 }
